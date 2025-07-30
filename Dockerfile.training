@@ -1,0 +1,27 @@
+# Dockerfile specifically for training models
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements_real_data.txt ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements_real_data.txt
+
+# Copy training scripts and data
+COPY scripts/ ./scripts/
+COPY data/ ./data/
+
+# Create models directory
+RUN mkdir -p models
+
+# Default command for training
+CMD ["python3", "scripts/train_model_real_medical_data.py"]

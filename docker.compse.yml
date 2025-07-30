@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  heart-anomaly-api:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./scripts:/app/scripts
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add MQTT broker for IoT integration
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+
+  # Optional: Add database for logging
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: heart_anomaly
+      POSTGRES_USER: medical_user
+      POSTGRES_PASSWORD: secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -1,0 +1,42 @@
+{
+  "model_info": {
+    "name": "Medical Heart Anomaly LSTM - 176K Dataset",
+    "version": "2.0",
+    "trained_on": "Real Medical Data (MIT-BIH + AFDB)",
+    "total_sequences": 176585,
+    "training_date": "2025-07-29T15:14:34.732589",
+    "total_parameters": 930433
+  },
+  "dataset_info": {
+    "total_sequences": 176585,
+    "databases": [
+      "MIT-BIH Arrhythmia",
+      "MIT-BIH Atrial Fibrillation"
+    ],
+    "normal_cases": 23329,
+    "abnormal_cases": 3159,
+    "real_data_percentage": 100.0
+  },
+  "performance_metrics": {
+    "accuracy": 0.9966777563095093,
+    "sensitivity": 0.9838556505223172,
+    "specificity": 0.9984139911697887,
+    "precision": 0.9882352941176471,
+    "recall": 0.9838556505223172,
+    "f1_score": 0.9860406091370558,
+    "auc_score": 0.9989558432578802
+  },
+  "confusion_matrix": {
+    "true_negatives": 23292,
+    "false_positives": 37,
+    "false_negatives": 51,
+    "true_positives": 3108
+  },
+  "clinical_assessment": {
+    "clinical_readiness": true,
+    "sensitivity_adequate": true,
+    "specificity_adequate": true,
+    "dataset_size": "Large (176K+ sequences)",
+    "data_quality": "High - Real PhysioNet data"
+  }
+}
