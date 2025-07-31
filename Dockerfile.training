@@ -23,5 +23,8 @@ COPY data/ ./data/
 # Create models directory
 RUN mkdir -p models
 
+# Copy existing models if present
+COPY models/ ./models/
+
 # Default command for training
 CMD ["python3", "scripts/train_model_real_medical_data.py"]

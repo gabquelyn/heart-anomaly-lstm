@@ -11,8 +11,8 @@ fi
 
 # Build images if they don't exist
 if [[ "$(docker images -q heart-anomaly-api:latest 2> /dev/null)" == "" ]]; then
-    echo "📦 Building Docker images..."
-    ./docker-build.sh
+    echo "📦 Build Docker images first ./docker-build.sh"
+    # ./docker-build.sh
 fi
 
 # Start the services
@@ -35,7 +35,6 @@ echo ""
 echo "✅ Heart Anomaly Detection System is running!"
 echo "🔗 API: http://localhost:3000"
 echo "🔗 Health: http://localhost:3000/health"
-echo "🔗 Model Info: http://localhost:3000/model/info"
 echo ""
 echo "📊 To view logs: docker-compose logs -f heart-anomaly-api"
 echo "🛑 To stop: docker-compose down"

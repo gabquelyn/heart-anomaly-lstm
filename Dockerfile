@@ -1,26 +1,18 @@
-# Use official Node.js runtime as base image
-FROM node:18-slim
+# Use official Python image as base
+FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
-# Install Python and system dependencies for TensorFlow
+# System dependencies (optional: curl for healthcheck)
 RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    python3-dev \
     build-essential \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy package files
-COPY package.json ./
-COPY requirements_real_data.txt ./
-
-# Install Node.js dependencies
-RUN npm install
-
 # Install Python dependencies
-RUN pip3 install -r requirements_real_data.txt
+COPY requirements_real_data.txt .
+RUN pip install --no-cache-dir -r requirements_real_data.txt
 
 # Copy application code
 COPY . .
@@ -28,12 +20,15 @@ COPY . .
 # Create necessary directories
 RUN mkdir -p models data/processed
 
-# Expose ports
-EXPOSE 3000
+# Copy any existing data
+COPY data/ ./data/
 
-# Health check
+# Expose FastAPI port
+EXPOSE 8000
+
+# Health check (adjust if you add a real endpoint)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/health || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
-# Default command
-CMD ["node", "server-medical-data.js"]
+# Start FastAPI using uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

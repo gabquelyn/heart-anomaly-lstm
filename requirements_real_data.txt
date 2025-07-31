@@ -11,3 +11,11 @@ seaborn>=0.11.0,<1.0.0
 # Medical data packages
 wfdb>=4.0.0,<5.0.0
 requests>=2.28.0,<3.0.0
+
+# FastAPI backend stack
+fastapi>=0.100.0,<1.0.0
+uvicorn[standard]>=0.22.0,<1.0.0
+pydantic>=1.10.0,<2.0.0
+
+# CORS support (optional, useful for frontend-backend integration)
+python-multipart

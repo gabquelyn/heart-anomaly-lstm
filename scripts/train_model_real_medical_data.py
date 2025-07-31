@@ -153,7 +153,7 @@ def train_with_current_data():
     )
     
     checkpoint = ModelCheckpoint(
-        'models/best_medical_model_176k.h5',
+        'models/best_medical_model_176k.keras',
         monitor='val_accuracy',
         save_best_only=True,
         verbose=1
@@ -229,7 +229,7 @@ def save_model_and_metrics_176k(model, scaler, history, accuracy, precision, rec
     os.makedirs('models', exist_ok=True)
     
     # Save model
-    model.save('models/heart_anomaly_medical_lstm_176k.h5')
+    model.save('models/heart_anomaly_medical_lstm_176k.keras')
     joblib.dump(scaler, 'models/scaler_medical_176k.pkl')
     
     # Save scaler parameters for Node.js
@@ -289,7 +289,7 @@ def save_model_and_metrics_176k(model, scaler, history, accuracy, precision, rec
     
     print("✅ Model and metrics saved successfully!")
     print("\nFiles created:")
-    print("- models/heart_anomaly_medical_lstm_176k.h5")
+    print("- models/heart_anomaly_medical_lstm_176k.keras")
     print("- models/scaler_medical_176k.pkl")
     print("- models/scaler_params_medical_176k.json")
     print("- models/medical_metrics_176k.json")
